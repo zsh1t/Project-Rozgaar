@@ -1,10 +1,26 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const CTASection = () => {
   const ref = useRef(null);
+  const [copyLabel, setCopyLabel] = useState("Copy Email");
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const email = "salonik.in007@gmail.com";
+  const mailtoHref = `mailto:${email}?subject=Project%20Rozgar%20Inquiry&body=Hi%20Project%20Rozgar%20Team%2C%0A%0A`;
+  const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+  const outlookComposeHref = `https://outlook.office.com/mail/deeplink/compose?to=${email}`;
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopyLabel("Copied");
+      setTimeout(() => setCopyLabel("Copy Email"), 2000);
+    } catch {
+      setCopyLabel("Copy failed");
+      setTimeout(() => setCopyLabel("Copy Email"), 2000);
+    }
+  };
 
   return (
     <section className="py-24 md:py-32 px-6">
@@ -26,12 +42,37 @@ const CTASection = () => {
             stability, and community transformation. With your support, this initiative
             can create a self-sustaining cycle of opportunity.
           </p>
-          <a
-            href="mailto:salonik.in007@gmail.com"
-            className="inline-block bg-gradient-accent font-display font-semibold text-accent-foreground px-10 py-4 rounded-lg text-sm tracking-wide hover:opacity-90 transition-opacity"
-          >
-            Get In Touch
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href={mailtoHref}
+              className="inline-block bg-gradient-accent font-display font-semibold text-accent-foreground px-10 py-4 rounded-lg text-sm tracking-wide hover:opacity-90 transition-opacity"
+            >
+              Get In Touch
+            </a>
+            <a
+              href={gmailComposeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block border border-border font-display font-semibold text-foreground px-6 py-4 rounded-lg text-sm tracking-wide hover:bg-muted transition-colors"
+            >
+              Open in Gmail
+            </a>
+            <a
+              href={outlookComposeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block border border-border font-display font-semibold text-foreground px-6 py-4 rounded-lg text-sm tracking-wide hover:bg-muted transition-colors"
+            >
+              Open in Outlook
+            </a>
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className="inline-block border border-border font-display font-semibold text-foreground px-6 py-4 rounded-lg text-sm tracking-wide hover:bg-muted transition-colors"
+            >
+              {copyLabel}
+            </button>
+          </div>
         </motion.div>
 
         {/* Footer info */}
@@ -54,10 +95,10 @@ const CTASection = () => {
               <div className="flex items-center gap-2 justify-center md:justify-start">
                 <Mail className="w-4 h-4 text-text-subtle" />
                 <a
-                  href="mailto:salonik.in007@gmail.com"
+                  href={mailtoHref}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  salonik.in007@gmail.com
+                  {email}
                 </a>
               </div>
               <div className="flex items-center gap-2 justify-center md:justify-start">
