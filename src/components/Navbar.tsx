@@ -41,12 +41,6 @@ const Navbar = () => {
               {item}
             </a>
           ))}
-          <a
-            href="mailto:salonik.in007@gmail.com"
-            className="bg-gradient-accent font-display text-accent-foreground text-sm font-semibold px-5 py-2 rounded-lg hover:opacity-90 transition-opacity"
-          >
-            Support Us
-          </a>
         </div>
       </div>
     </motion.nav>
